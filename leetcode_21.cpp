@@ -52,3 +52,45 @@ public:
       return res->next;
     }
 };
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+      ListNode* res = new ListNode(0, nullptr);
+      ListNode* res_copy = res;
+      while (l1 != nullptr && l2 != nullptr) {
+        if (l1->val <= l2->val) {
+          res_copy->next = l1;
+          l1 = l1->next;
+        }
+        else {
+          res_copy->next = l2;
+          l2 = l2->next;
+        }
+        res_copy = res_copy->next;
+      }
+      
+      res_copy->next = l1 == nullptr ? l2 : l1;
+      return res->next;
+    }
+};
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+      if (list1 == nullptr) {
+        return list2;
+      }
+      else if (list2 == nullptr) {
+        return list1;
+      }
+      else if (list1->val < list2->val) {
+        list1->next = mergeTwoLists(list1->next, list2);
+        return list1;
+      }
+      else {
+        list2->next = mergeTwoLists(list2->next, list1);
+        return list2;
+      }
+    }
+};
